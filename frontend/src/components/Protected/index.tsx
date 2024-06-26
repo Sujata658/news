@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import Login from '@/pages/Auth/Login';
 import { toast } from 'sonner';
 import renewToken from '@/apis/users/renewToken';
+import { ThemeButton } from '../General/ThemeButton';
+import Navbar from '../Navbar';
 
 interface JwtPayload {
     exp: number;
@@ -103,7 +105,17 @@ const Protected = () => {
         }
     };
 
-    return accessToken ? <Outlet /> : <Login />;
+    return accessToken ? 
+    <div className='relative max-h-screen min-h-screen'>
+        <Navbar/>
+        <Outlet /> 
+        <div className='absolute bottom-4 right-4'>
+        <ThemeButton/>
+        </div>
+    </div>
+    
+    
+    : <Login />;
 };
 
 export default Protected;
