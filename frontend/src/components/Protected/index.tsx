@@ -20,7 +20,7 @@ const Protected = () => {
         const checkAccessToken = async () => {
             const token = localStorage.getItem('accessToken');
             const refreshToken = localStorage.getItem('refreshToken');
-            
+
             if (token) {
                 setAccessToken(token);
                 try {
@@ -40,12 +40,12 @@ const Protected = () => {
                                     // Call your renew token API
                                     try {
                                         const response = await renewToken(refreshToken);
-                                        if(!response) {
+                                        if (!response) {
                                             handleLogout();
-                                        }else{
+                                        } else {
 
                                             const newAccessToken = response;
-                                            
+
                                             localStorage.setItem('accessToken', newAccessToken.accessToken);
                                             setAccessToken(newAccessToken.accessToken);
                                         }
@@ -105,17 +105,21 @@ const Protected = () => {
         }
     };
 
-    return accessToken ? 
-    <div className='relative max-h-screen min-h-screen'>
-        <Navbar/>
-        <Outlet /> 
-        <div className='absolute bottom-4 right-4'>
-        <ThemeButton/>
+    return accessToken ?
+        <div className='relative'>
+            <div className=' max-h-screen min-h-screen overflow-y-auto'>
+            <Navbar />
+            <Outlet />
+
+            </div>
+            <div className='absolute bottom-4 right-8'>
+                <ThemeButton />
+            </div>
         </div>
-    </div>
-    
-    
-    : <Login />;
+
+
+
+        : <Login />;
 };
 
 export default Protected;
