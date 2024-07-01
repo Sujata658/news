@@ -10,7 +10,6 @@ interface PrefInputProps {
 const PrefInput = ({ title, value, onChange }: PrefInputProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const valueAsNumber = parseFloat(e.target.value);
-    
     onChange(valueAsNumber);
 };
 

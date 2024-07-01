@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { categories } from "@/components/Home/Dashboard/const";
@@ -13,6 +14,8 @@ interface LayoutProps {
 }
 
 const Layout = ({ nr, nc, ncard, r, c, onCategorySelect, isCategorySelected }: LayoutProps) => {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(Array.from({ length: ncard }, () => ''));
+
   const config = {
     display: "grid",
     gridTemplateColumns: `repeat(${nc}, 1fr)`,
@@ -22,6 +25,9 @@ const Layout = ({ nr, nc, ncard, r, c, onCategorySelect, isCategorySelected }: L
   };
 
   const handleCategoryChange = (cardNumber: number, category: string) => {
+    const updatedCategories = [...selectedCategories];
+    updatedCategories[cardNumber - 1] = category;
+    setSelectedCategories(updatedCategories);
     onCategorySelect(cardNumber, category);
   };
 
@@ -31,6 +37,7 @@ const Layout = ({ nr, nc, ncard, r, c, onCategorySelect, isCategorySelected }: L
     return {
       gridColumn: `span ${colSpan}`,
       gridRow: `span ${rowSpan}`,
+      border: `border border-primary`,
     };
   };
 
@@ -46,7 +53,7 @@ const Layout = ({ nr, nc, ncard, r, c, onCategorySelect, isCategorySelected }: L
               <SelectTrigger className="">
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent >
                 {categories.map((category, index) => (
                   <SelectItem
                     key={index}
