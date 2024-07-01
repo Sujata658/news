@@ -8,8 +8,9 @@ import OTP from "./pages/Auth/OTP";
 import Protected from "./components/Protected";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import MyProfile from "./pages/MyProfile";
-import Preferences from "./pages/Preferences";
 import Settings from "./pages/Settings";
+import TopNews from "./pages/TopNews";
+import Pref from "./pages/Preferences";
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route element={<Protected />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/topnews" element={<TopNews />} />
             <Route path="/profile/me" element={<MyProfile />} />
-            <Route path="/profile/preferences" element={<Preferences/>} />
+            <Route path="/profile/preferences" element={<Pref/>} />
             <Route path="/profile/settings" element={<Settings/>} />
           </Route>
           <Route path="*" element={<h1>Not Found</h1>} />

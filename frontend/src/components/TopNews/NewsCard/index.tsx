@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import { News } from "@/types/news";
 
 const NewsCard = ({ news }: { news: News }) => {
-    console.log(news)
     return (
         <Card className="w-full h-[50vh] bg-background rounded-[10px] shadow-lg flex flex-col justify-between">
             {news.urlToImage ? (

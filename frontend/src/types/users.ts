@@ -1,3 +1,5 @@
+import { Preferences } from "./preferences";
+
 export interface SignUpData {
     name: string;
     email: string;
@@ -13,6 +15,7 @@ export interface User {
     _id: string;
     name: string;
     email: string;
+    preferences: Preferences;
     createdAt: string;
     updatedAt: string;
 }

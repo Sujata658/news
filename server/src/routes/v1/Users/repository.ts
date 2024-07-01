@@ -11,7 +11,7 @@ export const createUserRepo = async (userData: User, code: string): Promise<Part
 
 
 export const getUserByEmail = (email: string) => {
-  return UserModel.findOne({ email: email });
+  return UserModel.findOne({ email: email }).populate('preferences', '-__v -_id -users');
 };
 export const getUserById = (id: string)=> {
   return UserModel.findById({ _id: id }).select('-password');

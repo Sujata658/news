@@ -108,8 +108,13 @@ const Protected = () => {
     return accessToken ?
         <div className='relative'>
             <div className=' max-h-screen min-h-screen overflow-y-auto'>
-            <Navbar />
-            <Outlet />
+                <div className='h-[10vh]'>
+
+                <Navbar />
+                </div>
+                <div className='h-[90vh]'>
+                <Outlet />
+                </div>
 
             </div>
             <div className='absolute bottom-4 right-8'>

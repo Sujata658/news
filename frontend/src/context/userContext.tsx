@@ -1,31 +1,42 @@
-import { User } from "@/types/users"
-import React, { useContext, useState } from "react"
-import { createContext } from "react"
+import { User } from "@/types/users";
+import React, { useContext, useState, useEffect } from "react";
+import { createContext } from "react";
+import { usePreference } from "./prefContext";
 
 interface UserContextType {
-    user: User | null
-    setUser: (user: User | null) => void
+    user: User | null;
+    setUser: (user: User | null) => void;
 }
 
 const UserContext = createContext<UserContextType>({
     user: null,
-    setUser: () => {}
-})
+    setUser: () => {},
+});
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
-  
-  
+    const [user, setUser] = useState<User | null>(() => {
+        const storedUser = localStorage.getItem('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+
+    const { setPreferences } = usePreference();
+
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
+            if (user.preferences !== undefined) {
+                setPreferences(user.preferences);
+            }
+        }
+    }, [user, setPreferences]);
+
     return (
-      <UserContext.Provider value={{ user, setUser }}>
-        {children}
-      </UserContext.Provider>
+        <UserContext.Provider value={{ user, setUser }}>
+            {children}
+        </UserContext.Provider>
     );
-  };
+};
 
 export const useUser = () => useContext(UserContext);
 
-export { UserProvider}
+export { UserProvider };

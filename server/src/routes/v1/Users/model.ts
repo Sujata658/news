@@ -9,6 +9,7 @@ export interface User {
   password: string;
   isVerified?: boolean;
   otp?: string;
+  preferences?: string;
 }
 
 
@@ -46,7 +47,13 @@ const userSchema = new mongoose.Schema<UserDocument>(
     otp: {
       type: String,
       required: false,
-    }
+    },
+    preferences: 
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'preference',
+      },
+    
   },
   {
     timestamps: true,

@@ -1,5 +1,5 @@
-const categories = [
-    // businessentertainmentgeneralhealthsciencesportstechnology
+export const categories = [
+    // business-entertainment-general-health-science-sports-technology
     { value: 'business', label: 'Business' },
     { value: 'entertainment', label: 'Entertainment' },
     { value: 'general', label: 'General' },

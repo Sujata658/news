@@ -11,7 +11,6 @@ import { Payload } from './types';
 const UserController = {
   async resendOtp(req: Request<unknown, unknown, { email: string }>, res: Response, next: NextFunction) {
     try {
-      console.log(req.body)
       const { email } = req.body;
       const isValidEmail = InputValidation.validateEmail(email);
       if (!isValidEmail) throw new CustomError(messages.validation.invalid_email, 400);
