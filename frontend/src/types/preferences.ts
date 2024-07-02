@@ -1,18 +1,15 @@
 export interface Preferences {
+  _id: string
   user: string
-  categories: string[]
-  rows: number
-  ncards: number
-  columns: number
-  rowSpan: number[]
-  colSpan: number[]
+  preferences: Preference[]
 }
 
-export interface PreferencesProps {
-  categories: string[]
+export interface Preference {
+  type: string
   rows: number
-  ncards: number
   columns: number
+  ncards: number
   rowSpan: number[]
   colSpan: number[]
+  categories: string[]
 }

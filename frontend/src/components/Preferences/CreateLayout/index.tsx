@@ -2,14 +2,15 @@ import { Button } from "@/components/ui/button";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Preferences } from "@/types/preferences";
-import { useEffect } from "react";
+import { Preference } from "@/types/preferences";
 import Layout from "../Layout";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import createPreferences from "@/apis/preferences/createPreferences";
+import { toast } from "sonner";
 
 
 const preferencesSchema = z.object({
-  user: z.string().optional(),
+  type: z.enum(["normal", "default"]),
   rows: z.number().min(1),
   columns: z.number().min(1),
   ncards: z.number().min(1),
@@ -24,20 +25,20 @@ const preferencesSchema = z.object({
 });
 
 interface CreateFormProps {
-  onSubmit: (data: Preferences) => void;
+  onSubmit: (data: Preference) => void;
 }
 
 const CreateForm = ({ onSubmit }: CreateFormProps) => {
-  const { control, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<Preferences>({
+  const { control, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<Preference>({
     resolver: zodResolver(preferencesSchema),
     defaultValues: {
-      user: "",
+      type: "normal",
       rows: 1,
       columns: 1,
       ncards: 1,
       rowSpan: [1],
       colSpan: [1],
-      categories: [], // Initialize categories as an empty array
+      categories: [],
     },
   });
 
@@ -49,10 +50,19 @@ const CreateForm = ({ onSubmit }: CreateFormProps) => {
   const watchCategories = watch("categories");
 
 
-  const handleFormSubmit = (data: Preferences) => {
-    console.log("Form submitted with data:", data);
-    onSubmit(data);
+  const handleFormSubmit = (data: Preference) => {
+    try {
+      createPreferences(data).then(() => {
+        toast.success("Preferences created successfully");
+         onSubmit(data);
     reset();
+      }).catch(() => {
+        toast.error("Failed to create preferences");
+      });
+    } catch (error) {
+      
+    }
+   
   };
 
   const handleCategorySelect = (cardNumber: number, category: string) => {
@@ -200,7 +210,6 @@ const CreateForm = ({ onSubmit }: CreateFormProps) => {
               isCategorySelected={isCategorySelected}
             />
           </div>
-          {/* Display error for categories */}
           {errors.categories && <div className="text-red-500">{errors.categories.message}</div>}
           </div>
          

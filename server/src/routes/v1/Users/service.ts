@@ -87,7 +87,8 @@ const UserService = {
     }
     
     return updatePassword(id, password);
-  }
+  },
+ 
 };
 
 export default UserService;

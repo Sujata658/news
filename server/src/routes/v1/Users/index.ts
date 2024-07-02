@@ -9,4 +9,5 @@ UserRouter.post('/verify/:otp/:email', UserController.verifyOtp);
 
 UserRouter.post('/changePassword', UserController.changePassword);
 
+
 export default UserRouter;

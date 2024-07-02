@@ -94,8 +94,8 @@ const UserController = {
     } catch (error) {
       next(error);
     }
-  }
-  
+  },
+ 
 };
 
 export default UserController;

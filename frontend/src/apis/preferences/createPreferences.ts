@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/config/axios";
-import { PreferencesProps } from "@/types/preferences";
+import { Preference } from "@/types/preferences";
 
-const createPreferences = async (preferences: PreferencesProps) => {
+const createPreferences = async (preferences: Preference) => {
     try {
         const response = await axiosInstance.post(`/preferences/`, preferences);
         if (response.status !== 200) {

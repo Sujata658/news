@@ -48,11 +48,6 @@ const userSchema = new mongoose.Schema<UserDocument>(
       type: String,
       required: false,
     },
-    preferences: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'preference',
-      },
     
   },
   {

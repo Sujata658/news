@@ -1,16 +1,23 @@
-import { getPreferences, createPreferences, deletePreferences } from './repository';
-import { PreferencesProps } from './model';
+import { getPreferences, createPreferences, deletePreferences, addPreferences } from './repository';
+import { Preference } from './model';
 
 const PreferencesService = {
-    async getPreferences(userId: { _id: string }) {
-        return getPreferences(userId._id);
+    async getPreferences(userId: string) {
+        const pref = await getPreferences(userId);
+        return pref;
     },
-    async createPreferences(userId: { _id: string }, preferences: PreferencesProps) {
-        return createPreferences(userId._id, preferences);
+    async createPreferences(userId: string, preferences: Preference) {
+        const pref = await getPreferences(userId);
+        if (pref) {
+            return addPreferences(userId, preferences);
+            
+        }else{
+            return createPreferences(userId, preferences);
+        }
     },
-    async deletePreferences(userId: { _id: string }) {
-        return deletePreferences(userId._id);
+    async deletePreferences(userId: string) {
+        return deletePreferences(userId);
     }
-}
+};
 
 export default PreferencesService;
