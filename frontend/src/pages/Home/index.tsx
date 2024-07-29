@@ -6,10 +6,10 @@ const Home = () => {
 
   return (
     <>
-      <div className="h-full">
+      <div className="max-w-screen h-[90vh]">
         {
           pref && (
-            <Dashboard nr={pref.rows} nc={pref.columns} ncard={pref.ncards} r={pref.rowSpan} c={pref.colSpan} categories={pref.categories} />
+            <Dashboard preference={pref} />
           )
         }
 

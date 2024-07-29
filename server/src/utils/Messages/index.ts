@@ -40,11 +40,13 @@ export const messages = {
     invalid_email: "Email is Invalid",
     invalid_password: "Password is invalid",
     invalid_otp: "OTP is not valid",
+    password_not_match: "Password does not match",
   },
   preferences:{
       not_found: "Preferences not found",
       get_success: "Preferences fetched successfully",
       create_success: "Preferences created successfully",
       delete_success: "Preferences deleted successfully",
+      update_success: "Preferences updated successfully",
   }
 };

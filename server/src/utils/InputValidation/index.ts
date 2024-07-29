@@ -15,7 +15,7 @@ const InputValidation = {
         
     },
     async validateUser(user: User) {
-        if (!user.name || !user.email || !user.password) {
+        if (!user.fname || !user.lname || !user.email || !user.password) {
             throw new CustomError(messages.user.validation.missing_data, 400);
         }
 

@@ -5,16 +5,22 @@ import App from './App.tsx'
 import './index.css'
 import { UserProvider } from './context/userContext.tsx'
 import PreferenceProvider from './context/prefContext.tsx'
+import NewsProvider from './context/newsContext.tsx'
+import CategoryProvider from './context/catContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  
+
   <React.StrictMode>
-    <BrowserRouter>
-    <UserProvider>
-      <PreferenceProvider>
-       <App />
-      </PreferenceProvider>
-    </UserProvider>
+    <BrowserRouter>z
+      <UserProvider>
+        <PreferenceProvider>
+          <CategoryProvider>
+            <NewsProvider>
+              <App />
+            </NewsProvider>
+          </CategoryProvider>
+        </PreferenceProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )

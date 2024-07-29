@@ -1,22 +1,30 @@
+import CustomError from '../../../utils/Error';
+import { Config } from '../Config/model';
+import { handleDefault } from '../Config/repository';
 import { getPreferences, createPreferences, deletePreferences, addPreferences } from './repository';
-import { Preference } from './model';
+
 
 const PreferencesService = {
     async getPreferences(userId: string) {
         const pref = await getPreferences(userId);
         return pref;
     },
-    async createPreferences(userId: string, preferences: Preference) {
+    async createPreferences(userId: string, config: Config) {
+        return createPreferences(userId, config);
+    },
+    async deletePreferences(userId: string, configId: string) {
+        return deletePreferences(userId, configId);
+    },
+    async addConfig(userId: string, config: Config) {
+        return addPreferences(userId, config);
+    },
+    async handleDefault(userId: string, defaultId: string) {
         const pref = await getPreferences(userId);
         if (pref) {
-            return addPreferences(userId, preferences);
-            
-        }else{
-            return createPreferences(userId, preferences);
+            const configIds = pref.configs.map((config: any) => config._id.toString());
+            return await handleDefault(defaultId, configIds);
         }
-    },
-    async deletePreferences(userId: string) {
-        return deletePreferences(userId);
+        throw new CustomError('Preferences not found', 404);
     }
 };
 

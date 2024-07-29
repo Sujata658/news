@@ -5,7 +5,6 @@ import requireUser from "../../../middleware/requireUser";
 const PreferencesRouter = Router();
 
 PreferencesRouter.get('/',requireUser, PreferencesController.getPreferences);
-PreferencesRouter.post('/', requireUser, PreferencesController.createPreferences);
-PreferencesRouter.delete('/', requireUser, PreferencesController.deletePreferences);
+PreferencesRouter.post('/', requireUser, PreferencesController.handleDefault)
 
 export default PreferencesRouter;

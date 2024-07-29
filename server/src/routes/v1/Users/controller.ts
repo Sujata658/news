@@ -47,12 +47,12 @@ const UserController = {
       next(error);
   }
   },
-  async updateUser(req: Request<{ id: string }, unknown, Partial<User>>, res: Response, next: NextFunction) {
+  async updateUser(req: Request<unknown, unknown, Partial<User>>, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const userId = res.locals.user._id as string;
       const body = req.body;
 
-      const result = await UserService.updateUser(id, body);
+      const result = await UserService.updateUser(userId, body);
       if (!result) throw new CustomError(messages.user.not_found, 404);
       return successResponse({
         response: res,
@@ -63,11 +63,11 @@ const UserController = {
       next(error);
     }
   },
-  async deleteUser(req: Request<{ id: string }>, res: Response, next: NextFunction) {
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const userId = res.locals.user._id as string;
 
-      await UserService.deleteUser(id);
+      await UserService.deleteUser(userId);
       next(successResponse({
         response: res,
         message: messages.user.delete_success,
@@ -95,6 +95,26 @@ const UserController = {
       next(error);
     }
   },
+  async editPassword(req: Request<unknown, unknown, { currentpassword: string, newpassword:string, cpassword: string }>, res: Response, next: NextFunction) {
+    try {
+      const userId = res.locals.user._id as string;
+      const { currentpassword, newpassword, cpassword } = req.body;
+
+      if(!currentpassword || !newpassword || !cpassword) throw new CustomError(messages.validation.param_missing, 400);
+
+      if(newpassword !== cpassword) throw new CustomError(messages.validation.password_not_match, 400);
+
+      const result = await UserService.editPassword(userId, currentpassword, newpassword, cpassword);
+      if (!result) throw new CustomError(messages.user.not_found, 404);
+      return successResponse({
+        response: res,
+        message: messages.user.update_success,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
  
 };
 

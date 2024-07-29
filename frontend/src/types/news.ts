@@ -7,6 +7,7 @@ export interface News {
     urlToImage: string
     publishedAt: string
     content: string
+    name?: string
 }
 
 export interface Source {

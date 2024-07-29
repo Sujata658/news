@@ -11,6 +11,7 @@ import MyProfile from "./pages/MyProfile";
 import Settings from "./pages/Settings";
 import TopNews from "./pages/TopNews";
 import Pref from "./pages/Preferences";
+import ViewDetails from "./components/General/ViewDetails";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route element={<Protected />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/topnews" element={<TopNews />} />
+            <Route path="/news/details" element={<ViewDetails />} />
             <Route path="/profile/me" element={<MyProfile />} />
             <Route path="/profile/preferences" element={<Pref/>} />
             <Route path="/profile/settings" element={<Settings/>} />

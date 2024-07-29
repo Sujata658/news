@@ -9,9 +9,8 @@ export const createUserRepo = async (userData: User, code: string): Promise<Part
   return userWithoutPassword;
 };
 
-
 export const getUserByEmail = (email: string) => {
-  return UserModel.findOne({ email: email }).populate('preferences', '-__v -_id -users');
+  return UserModel.findOne({ email: email });
 };
 export const getUserById = (id: string)=> {
   return UserModel.findById({ _id: id }).select('-password');
@@ -39,4 +38,8 @@ export const deleteUser = (id: string) => {
 
 export const updatePassword = async ( id: string,password: string) => {
   return await UserModel.findByIdAndUpdate(id, { password: password });
+}
+
+export const getUserByIdWithPassword = (id: string) => {
+  return UserModel.findById({ _id: id });
 }

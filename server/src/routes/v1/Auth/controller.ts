@@ -28,6 +28,7 @@ const AuthController = {
       const body = req.body;
       InputValidation.validateAuth(body);
       const result = await AuthService.login(body);
+      console.log('here')
       return successResponse({
         status: 200,
         response: res,

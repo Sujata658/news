@@ -19,7 +19,7 @@ const AuthService = {
     
     await createUserRepo(data, code)
     
-    const url = env.baseUrl + '/verify/' + code + '/' + data.email;
+    const url = env.baseUrl + 'verify/' + code + '/' + data.email;
 
     await sendMail(data.email, 'Verify Email', `Please click on the link to verify your email: ${url}`);
 

@@ -37,7 +37,6 @@ const Protected = () => {
                                     console.log('Refresh token has expired!');
                                     handleLogout();
                                 } else {
-                                    // Call your renew token API
                                     try {
                                         const response = await renewToken(refreshToken);
                                         if (!response) {
@@ -112,7 +111,7 @@ const Protected = () => {
 
                 <Navbar />
                 </div>
-                <div className='h-[90vh]'>
+                <div className='h-[90vh] max-w-screen'>
                 <Outlet />
                 </div>
 

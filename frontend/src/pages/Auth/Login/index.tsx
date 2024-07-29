@@ -1,11 +1,14 @@
 import login from "@/apis/users/login";
 import AuthForm from "@/components/Auth/AuthForm"
+import { Card } from "@/components/ui/card";
 import { useUser } from "@/context/userContext";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "sonner";
 import { z } from "zod";
+
+import bg from '../../../assets/authbg.jpg';
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -52,18 +55,22 @@ const Login = () => {
 
   return (
     <>
-      <div className="h-screen p-4 flex text-start">
-        <div className="flex-1 flex flex-col justify-center items-center mx-8">
-          <div className="text-4xl mt-4 font-bold mb-4">
+     <div className="flex justify-center items-center h-screen p-4" style={{
+      backgroundImage: `url(${bg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
+      <Card className="w-full max-w-md mx-6 p-8 border-black rounded-[10px]">
+        <div className="flex flex-col justify-center items-center">
+          <div className="text-2xl mt-4 font-bold mb-2">
             Welcome Back
           </div>
-          <div className="mb-4">
-            Don't have an account?{" "}
-            <Link to="/signup" className="underline text-secondary">
-              Sign Up
-            </Link>
+          <div className="text-gray-600 text-sm mb-4">
+            Don't have an account? <Link to="/signup" className="underline text-black">Sign Up</Link>
           </div>
-          <div className="w-full">
+          <div className="w-full flex flex-col items-center">
+            <div className="w-full my-8 border py-6 border-foreground/50 rounded-[5px]">
+
             <AuthForm
               schema={loginSchema}
               onSubmit={handleSubmit}
@@ -72,13 +79,15 @@ const Login = () => {
                 { name: "password", label: "Password", placeholder: "Password", inputType: "password" },
               ]}
             />
-            <div>
-              <Link to="/forgot-password" className="text-secondary">Forgot Password?</Link>
+            </div>
+            <div className="mt-2 flex ">
+              <Link to="/forgot-password" className="underline text-xs  text-black">Forgot Password?</Link>
             </div>
             {error && <div className="text-destructive-foreground mt-2">{error}</div>}
           </div>
         </div>
-      </div>
+      </Card>
+    </div>
 
     </>
   )

@@ -1,15 +1,17 @@
 export interface Preferences {
   _id: string
   user: string
-  preferences: Preference[]
+  configs: Config[]
 }
 
-export interface Preference {
-  type: string
+export interface Config {
+  _id: string
   rows: number
   columns: number
   ncards: number
   rowSpan: number[]
   colSpan: number[]
   categories: string[]
+  isDefault: boolean
 }
+

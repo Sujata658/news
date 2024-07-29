@@ -9,5 +9,11 @@ UserRouter.post('/verify/:otp/:email', UserController.verifyOtp);
 
 UserRouter.post('/changePassword', UserController.changePassword);
 
+UserRouter.patch('/', UserController.updateUser);
+
+UserRouter.patch('/updatePassword', UserController.editPassword);
+
+UserRouter.delete('/', UserController.deleteUser);
+
 
 export default UserRouter;

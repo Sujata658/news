@@ -2,11 +2,14 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import CustomError from '../../../utils/Error';
 import { messages } from '../../../utils/Messages';
+import { PreferencesModel } from '../Preferences/model';
 
 export interface User {
-  name: string;
+  fname: string;
+  lname: string;
   email: string;
   password: string;
+  phone?: string;
   isVerified?: boolean;
   otp?: string;
   preferences?: string;
@@ -23,9 +26,14 @@ export interface UserDocument extends User {
 
 const userSchema = new mongoose.Schema<UserDocument>(
   {
-    name: {
+    fname: {
       type: String,
-      required: [true, 'Name is Required'],
+      required: [true, 'First Name is Required'],
+      unique: false,
+    },
+    lname: {
+      type: String,
+      required: [true, 'Last Name is Required'],
       unique: false,
     },
     email: {
@@ -45,6 +53,10 @@ const userSchema = new mongoose.Schema<UserDocument>(
       default: false,
     },
     otp: {
+      type: String,
+      required: false,
+    },
+    phone: {
       type: String,
       required: false,
     },
@@ -69,6 +81,17 @@ userSchema.pre('save', async function (next) {
     if (err instanceof Error) next(err);
   }
 });
+
+userSchema.post('save', async function (doc: any, next: any) {
+  try {
+    const preferences = new PreferencesModel({ user: doc._id, configs: [] });
+    await preferences.save();
+    next();
+  } catch (error) {
+    if(error instanceof Error) next(error);
+  }
+}
+);
 
 userSchema.methods.comparePassword = async function (candidatePassword: string) {
   if (!this.password) throw new CustomError(messages.auth.invalid_account, 401);
